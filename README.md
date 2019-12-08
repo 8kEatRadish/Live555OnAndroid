@@ -10,11 +10,17 @@ Live555是一个跨平台的流媒体解决方案，以C++为开发语言，实�
 
 live555的核心模块：
 
+![live555的核心模块](https://images.gitee.com/uploads/images/2019/1208/213726_b7dacff1_2301131.jpeg "核心模块.jpg")
+
 RTSP服务器和客户端的交互流程：
+
+![RTSP服务器和客户端的交互流程](https://images.gitee.com/uploads/images/2019/1208/213758_67ab21a2_2301131.png "交互流程.png")
 
 Live555的流媒体模块基本分为Source和Sink两大部分，当然他们也有一个共同的基类Medium。对服务器来说，Source为数据来源，Sink为数据输出，视频数据就通过MediaSource传递给MediaSink，最终通过RTPInterface网络传输给客户端，通过完成自己的ServerMediaSubsession和MediaSource来实现将需要直播的H.264编码数据传递给live555，以实现RTSP直播。
 
 服务端用到的模块以及继承关系：
+
+![服务端用到的模块以及继承关系](https://images.gitee.com/uploads/images/2019/1208/213829_0e17dc46_2301131.jpeg "处理流程.jpg")
 
 #### RTSP协议简介
 
@@ -34,6 +40,8 @@ RTSP处理流时会根据端点间可用带宽大小，将大数据切割成小�
 RTSP组合使用了可靠传输协议TCP（控制）和高效传输协议UDP（内容）来串流内容给用户，即文件开始传输而客户端不用等待整个文件内容抵达就开始播放。其实不仅仅是点播服务，RTSP还支持传输不能以传统方式下载后播放的直播内容。
 
 RTSP也并不负责数据传输，通常（非必须）是通过RTP（Real-time Transport Protocol）来完成，而RTP中，又通过RTCP负责完成同步、QOS管理等功能。具体应用中，它们三者的关系如下图所示：
+
+![RTSP关系](https://images.gitee.com/uploads/images/2019/1208/214024_768b214f_2301131.png "RTSP关系.png")
 
 RTSP：主要负责提供像播放、暂停、快进等操作，它负责定义具体的控制消息、操作方法、状态码等，此外还描述了与RTP间的交互操作。
 
@@ -122,6 +130,8 @@ JNIEXPORT jstring JNICALL Java_com_sniperking_live555suihw_Live555Func_start
 #### 移植中碰到的坑
 
 在ndk交叉编译的时候出现类似与下图的error：
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1208/214103_bd1dc884_2301131.png "keng.png")
 
 开始的时候以为是const标记的变量重新被赋值，通过查看源码发现是不同类型的赋值
 
